@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/*
+  Painel de splits de speedrun: fundo frio de overlay, ouro como acento único
+  (o "gold split") e rosa reservado exclusivamente para estados de erro.
+*/
+@theme {
+  --color-ink: #0e1116;
+  --color-panel: #161b24;
+  --color-rule: #232a36;
+  --color-text: #e4e8ef;
+  --color-muted: #7c8798;
+  --color-gold: #e8b84b;
+  --color-rose: #e4685d;
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
