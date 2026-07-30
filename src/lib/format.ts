@@ -1,9 +1,16 @@
 const LAMPORTS_PER_SOL = 1_000_000_000n;
 
 /**
- * Separa lamports nas duas metades que o painel mostra lado a lado:
- * a parte inteira em SOL e os 9 dígitos fracionários.
- * Feito com bigint para não perder precisão em saldos grandes.
+ * Vírgula, não ponto: a parte inteira é agrupada em pt-BR, onde o ponto já é
+ * separador de milhar. Usar ponto aqui faria 1234,033190984 SOL virar
+ * "1.234.033190984", com o mesmo caractere em dois papéis.
+ */
+export const DECIMAL_SEPARATOR = ",";
+
+/**
+ * Separa lamports nas duas metades que o painel mostra lado a lado: a parte
+ * inteira em SOL e os 9 dígitos fracionários. Feito com bigint para não perder
+ * precisão — um saldo grande em `number` já estouraria a mantissa.
  */
 export function splitLamports(lamports: bigint): {
   whole: string;

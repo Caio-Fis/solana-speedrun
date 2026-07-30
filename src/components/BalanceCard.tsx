@@ -3,7 +3,11 @@
 import { address } from "@solana/kit";
 import { useCallback, useEffect, useState } from "react";
 
-import { splitLamports, truncateAddress } from "@/lib/format";
+import {
+  DECIMAL_SEPARATOR,
+  splitLamports,
+  truncateAddress,
+} from "@/lib/format";
 import { rpc } from "@/lib/rpc";
 import { useSelectedAccount } from "@/lib/wallet-context";
 
@@ -106,7 +110,8 @@ function BalanceReadout({ walletAddress }: { walletAddress: string }) {
                 {parts.whole}
               </span>
               <span className="text-[clamp(1.25rem,5vw,2.5rem)] font-bold tabular-nums text-gold/45">
-                .{parts.fraction}
+                {DECIMAL_SEPARATOR}
+                {parts.fraction}
               </span>
             </>
           ) : (

@@ -44,6 +44,28 @@ solana airdrop 2 <SEU_ENDEREÇO> --url devnet
 
 Sem a CLI da Solana, use o faucet web: <https://faucet.solana.com>.
 
+## Testes
+
+```bash
+npm test           # roda uma vez
+npm run test:watch # fica observando
+```
+
+Vitest sobre jsdom, 38 testes cobrindo a lógica pura e os dois hooks de estado:
+
+- **`src/lib/format.ts`** — aritmética de lamports em bigint (precisão além do
+  `Number.MAX_SAFE_INTEGER`, padding da fração, agrupamento pt-BR) e o
+  formatador do relógio (virada de minuto e hora, truncamento, tempo negativo)
+- **`src/hooks/useSessionMessages.ts`** — roundtrip do `sessionStorage`, JSON
+  corrompido, entradas malformadas, storage bloqueado, trim e limite de
+  caracteres, e a sincronia entre dois consumidores do store
+- **`src/hooks/useRunClock.ts`** — o início da run sobrevive ao reload, valor
+  corrompido recomeça a contagem, e o intervalo é limpo ao desmontar
+
+Não há teste de componente nem E2E versionado. O caminho conectado foi validado
+manualmente com uma carteira mock via Wallet Standard contra o RPC real da
+devnet, mas esses scripts não estão no repositório.
+
 ## Deploy no Vercel
 
 1. <https://vercel.com/new> → importe este repositório
