@@ -1,5 +1,7 @@
 # Solana Speedrun
 
+**No ar: <https://solana-speedrun.vercel.app>**
+
 App web onde você conecta uma carteira Solana, lê o saldo na **devnet** e grava
 mensagens num log. Sem banco de dados: as mensagens vivem no `sessionStorage` da
 aba e somem quando ela fecha.
@@ -68,13 +70,21 @@ devnet, mas esses scripts não estão no repositório.
 
 ## Deploy no Vercel
 
-1. <https://vercel.com/new> → importe este repositório
-2. Aceite os padrões — o Vercel detecta Next.js sozinho
-3. Deploy
+O projeto já está publicado em <https://solana-speedrun.vercel.app>. Para
+republicar depois de mudar algo:
+
+```bash
+npx vercel deploy --prod
+```
 
 Nenhuma variável de ambiente é obrigatória: o endpoint da devnet vem embutido
 como padrão. Se for usar um RPC dedicado, adicione `NEXT_PUBLIC_SOLANA_RPC` nas
 configurações do projeto.
+
+> **O repositório ainda não está conectado ao Vercel**, então push não dispara
+> deploy — cada publicação é manual pelo comando acima. Para ligar o automático,
+> autorize o app do Vercel no GitHub em
+> <https://vercel.com/ceu-s-projects/solana-speedrun/settings/git>.
 
 ## Estrutura
 
