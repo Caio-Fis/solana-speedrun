@@ -24,7 +24,7 @@ function supports(
   wallet: UiWallet,
   feature: `${string}:${string}`,
 ): boolean {
-  return wallet.features.includes(feature);
+  return feature in wallet.features;
 }
 
 function supportsSolanaConnect(wallet: UiWallet): boolean {
