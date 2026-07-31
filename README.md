@@ -1,5 +1,7 @@
 # Solana Speedrun
 
+[![CI](https://github.com/Caio-Fis/solana-speedrun/actions/workflows/ci.yml/badge.svg)](https://github.com/Caio-Fis/solana-speedrun/actions/workflows/ci.yml)
+
 **No ar: <https://solana-speedrun.vercel.app>**
 
 App web onde você conecta uma carteira Solana, lê o saldo na **devnet** e grava
@@ -81,9 +83,20 @@ Há um teste de regressão explícito para o bug do `features` descrito no fim
 deste README: reintroduzir o `in` faz a lista de carteiras sumir e o teste
 quebrar.
 
-**O E2E não roda no build do Vercel** — precisa baixar o browser e subir um
-servidor, o que deixaria o deploy lento e instável. O gate de deploy é só o
-`npm test`. Não há CI configurado, então o E2E hoje depende de rodar local.
+### Onde cada suíte roda
+
+| | GitHub Actions | Build do Vercel |
+|---|---|---|
+| Lint e tipos | ✅ | — |
+| Unitários | ✅ Node 22 e 24 | ✅ bloqueia o deploy |
+| Ponta a ponta | ✅ contra o build de produção | ❌ |
+
+O E2E fica fora do build do Vercel porque precisa baixar o browser e subir um
+servidor — deixaria o deploy lento e instável. Quem cobre esse caminho é o CI,
+que roda em todo push na `main` e em todo pull request.
+
+Os unitários rodam em Node 22 (desenvolvimento) e 24 (o que o Vercel usa):
+uma diferença entre os builds de React nesses ambientes já derrubou um deploy.
 
 ## Deploy no Vercel
 
