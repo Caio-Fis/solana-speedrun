@@ -40,6 +40,12 @@ yarn-error.log*
 # notas de trabalho locais
 /tasks
 
+# playwright
+/test-results
+/playwright-report
+/blob-report
+/playwright/.cache
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

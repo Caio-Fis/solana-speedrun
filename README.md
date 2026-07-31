@@ -49,11 +49,13 @@ Sem a CLI da Solana, use o faucet web: <https://faucet.solana.com>.
 ## Testes
 
 ```bash
-npm test           # roda uma vez
-npm run test:watch # fica observando
+npm test        # unitários (Vitest) — 38 testes
+npm run test:e2e # ponta a ponta (Playwright) — 14 testes, sobe o dev server sozinho
 ```
 
-Vitest sobre jsdom, 38 testes cobrindo a lógica pura e os dois hooks de estado:
+### Unitários
+
+Vitest sobre jsdom, cobrindo a lógica pura e os dois hooks de estado:
 
 - **`src/lib/format.ts`** — aritmética de lamports em bigint (precisão além do
   `Number.MAX_SAFE_INTEGER`, padding da fração, agrupamento pt-BR) e o
@@ -64,9 +66,24 @@ Vitest sobre jsdom, 38 testes cobrindo a lógica pura e os dois hooks de estado:
 - **`src/hooks/useRunClock.ts`** — o início da run sobrevive ao reload, valor
   corrompido recomeça a contagem, e o intervalo é limpo ao desmontar
 
-Não há teste de componente nem E2E versionado. O caminho conectado foi validado
-manualmente com uma carteira mock via Wallet Standard contra o RPC real da
-devnet, mas esses scripts não estão no repositório.
+### Ponta a ponta
+
+Playwright com uma carteira Wallet Standard falsa (`e2e/fixtures.ts`) — um
+browser headless não tem extensão, e o app não conhece carteira alguma pelo
+nome, só o protocolo. As respostas de `getBalance` são interceptadas, então os
+testes não dependem do saldo de uma conta real nem do RPC público estar de pé.
+
+Cobre conectar e desconectar, os três estados do saldo (normal, conta vazia, RPC
+fora), gravar e limpar o log, persistência no reload, copiar endereço e ausência
+de scroll horizontal no mobile. Todo teste falha se o app logar erro no console.
+
+Há um teste de regressão explícito para o bug do `features` descrito no fim
+deste README: reintroduzir o `in` faz a lista de carteiras sumir e o teste
+quebrar.
+
+**O E2E não roda no build do Vercel** — precisa baixar o browser e subir um
+servidor, o que deixaria o deploy lento e instável. O gate de deploy é só o
+`npm test`. Não há CI configurado, então o E2E hoje depende de rodar local.
 
 ## Deploy no Vercel
 
