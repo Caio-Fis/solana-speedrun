@@ -2,6 +2,12 @@ import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 
+// O Vitest só define NODE_ENV=test quando a variável está vazia. Num ambiente
+// que já a define como "production" — o build do Vercel, por exemplo — o Vite
+// resolve o build de produção do React, onde `React.act` não existe, e todo
+// teste de hook quebra. Rodar a suíte é, por definição, NODE_ENV=test.
+process.env.NODE_ENV = "test";
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
