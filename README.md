@@ -70,8 +70,10 @@ devnet, mas esses scripts não estão no repositório.
 
 ## Deploy no Vercel
 
-O projeto já está publicado em <https://solana-speedrun.vercel.app>. Para
-republicar depois de mudar algo:
+O projeto está publicado em <https://solana-speedrun.vercel.app> e o repositório
+está conectado: **todo push na `main` publica em produção automaticamente.**
+
+Para publicar sem passar pelo git:
 
 ```bash
 npx vercel deploy --prod
@@ -80,11 +82,6 @@ npx vercel deploy --prod
 Nenhuma variável de ambiente é obrigatória: o endpoint da devnet vem embutido
 como padrão. Se for usar um RPC dedicado, adicione `NEXT_PUBLIC_SOLANA_RPC` nas
 configurações do projeto.
-
-> **O repositório ainda não está conectado ao Vercel**, então push não dispara
-> deploy — cada publicação é manual pelo comando acima. Para ligar o automático,
-> autorize o app do Vercel no GitHub em
-> <https://vercel.com/ceu-s-projects/solana-speedrun/settings/git>.
 
 ## Estrutura
 
